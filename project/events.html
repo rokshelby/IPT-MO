@@ -1,92 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My New Website</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/events.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My New Website</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/events.css" />
 </head>
-
 <body>
 
-    <div id="header-placeholder"></div>
+  <div id="header-placeholder"></div>
 
-    <main>
-        <h1>Upcoming Events</h1>
-        <p>Please join us at our upcoming events.</p>
+  <main>
+    <h1>Upcoming Events</h1>
+    <p>Please join us at our upcoming events.</p>
 
+    <div class="events-container">
+      <!-- Event cards will be inserted here dynamically -->
+    </div>
 
-        <div class="events-container">
-            <div class="event-card">
-                <h3 class="event-title">FamFun3k - 9th Annual</h3>
-                <div class="event-detail">
-                    <span class="event-icon">📅</span>
-                    <p><strong>Date:</strong> <span>Saturday - Sept. 13, 2025</span></p>
-                </div>
-                <div class="event-detail">
-                      <span class="event-icon">📍</span>
-                    <p><strong>Location:</strong><span> Lincoln Park</span></p>
-                </div>
-                <p class="description"><strong>Description:</strong> Come help support the cause.</p>
-                <p class="address"><strong>Address:</strong> 606 South 15th Street East St. Louis, IL 62207</p>
-                <a class="learn-more" href="#">Learn More</a>
-            </div>
-            <div class="event-card">
-                <h3 class="event-title">Brother Social Event</h3>
-                <div class="event-detail">
-             <span class="event-icon">📅</span>
-                    <p><strong>Date:</strong><span>Monday - Sept. 15, 2025</span></p>
-                </div>
-                <div class="event-detail">
-                    <span class="event-icon">📍</span>
-                    <p><strong>Location:</strong> <span>Carmel Room Rooftop</span></p>
-                </div>
-                <p class="description"><strong>Description:</strong> Social Gathering for members</p>
-                <p class="address"><strong>Address:</strong> 1600 N Broadway, St. Louis, MO 63102</p>
-                <a class="learn-more" href="#">Learn More</a>
-            </div>
-            <div class="event-card">
-                <h3 class="event-title">Host NPHC Meeting</h3>
-                <div class="event-detail">
-                                 <span class="event-icon">📅</span>
-                    <p><strong>Date:</strong><span> Sept. 18, 2025</span></p>
-                </div>
-                <div class="event-detail">
-                    <span class="event-icon">📍</span>
-                    <p><strong>Location:</strong> <span>Grand Marais Lighthouse Restaurant</span></p>
-                </div>
-                <p class="description"><strong>Description:</strong> Hosting the East St. Louis NPHC Meeting </p>
-                <p class="address"><strong>Address:</strong> 5802 Lake Dr, Centreville Township, IL 62203 </p>
-                <a class="learn-more" href="#">Learn More</a>
-            </div>
-            <div class="event-card">
-                <h3 class="event-title">Founders Day!</h3>
-                <div class="event-detail">
-                                 <span class="event-icon">📅</span>
-                    <p><strong>Date:</strong><span>Sept. 19, 2025</span></p>
-                </div>
-                <div class="event-detail">
-                    <span class="event-icon">📍</span>
-                    <p><strong>Location:</strong> <span>Upbar Social</span></p>
-                </div>
-                <p class="description"><strong>Description:</strong> Come join us to celebrate founders day!</p>
-                <p class="address"><strong>Address:</strong> 3763 Forest Park Ave, St. Louis, MO 63108 </p>
-                <a class="learn-more" href="#">Learn More</a>
-            </div>
-        </div>
-        <div class="all-events">
-            <a href="all-events.html" class="full-events-link">View All Events &rarr;</a>
-        </div>
+    <div class="all-events">
+      <a href="#" class="full-events-link">View All Events &rarr;</a>
+    </div>
+  </main>
 
-    </main>
-
-    <div id="footer-placeholder"></div>
-
-    <script src="js_scripts/main.js"></script>
-</body>
-
+  <div id="footer-placeholder"></div>
+  <script src="js_scripts/events.js"></script>
+  <script src="js_scripts/main.js"></script>
+  </body>
 </html>

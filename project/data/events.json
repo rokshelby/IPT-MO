@@ -1,0 +1,44 @@
+[
+  {
+    "title": "FamFun3k - 9th Annual",
+    "date": "09/13/2025",
+    "location": "Lincoln Park",
+    "description": "Come help support the cause.",
+    "address": "606 South 15th Street East St. Louis, IL 62207"
+  },
+  {
+    "title": "Brother Social Event",
+    "date": "09/15/2025",
+    "location": "Carmel Room Rooftop",
+    "description": "Social Gathering for members",
+    "address": "1600 N Broadway, St. Louis, MO 63102"
+  },
+  {
+    "title": "Toy Drive",
+    "date": "12/19/2025",
+    "location": "Grand Marais Lighthouse Restaurant",
+    "description": "Come join for a toy drive for the holidays",
+    "address": "5802 Lake Dr, Centreville Township, IL 62203"
+  },
+  {
+    "title": "Host NPHC Meeting",
+    "date": "09/18/2025",
+    "location": "Grand Marais Lighthouse Restaurant",
+    "description": "Hosting the East St. Louis NPHC Meeting",
+    "address": "5802 Lake Dr, Centreville Township, IL 62203"
+  },
+  {
+    "title": "Founders Day!",
+    "date": "09/19/2025",
+    "location": "Upbar Social",
+    "description": "Come join us to celebrate founders day!",
+    "address": "3763 Forest Park Ave, St. Louis, MO 63108"
+  },
+  {
+    "title": "Chili Cook Off Fundraiser",
+    "date": "10/19/2025",
+    "location": "East St Louis City Hall",
+    "description": "Come join for a cook off to help fund raise for st. jude",
+    "address": "1200 Market St, St. Louis, MO 63103"
+  }
+]
