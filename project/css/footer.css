@@ -1,0 +1,33 @@
+.footer-container {
+ background: #333;
+max-width: 1200px;
+ margin: 0 auto;
+
+ text-align: center;
+ color: white;
+}
+.social-links {
+   
+    background-color: white;
+
+    
+   
+    display: inline-block;
+    padding-top: 7px;
+    padding-left: 7px;
+    padding-right: 7px;
+
+    border-radius: 5px;
+    border: 1px solid white;
+    
+    
+
+}
+
+footer{
+     background: #333;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+}
+

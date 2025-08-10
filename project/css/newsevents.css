@@ -1,0 +1,37 @@
+.news-events {
+  align-self: flex-start;
+  text-align: right;
+  min-width: 250px;
+  background: #fafafa;
+  padding: 15px;
+  border: 1px solid #ddd;
+}
+
+.news-events h2 {
+  margin-top: 0;
+}
+
+.news-events ul {
+  list-style: none;
+  padding: 0;
+}
+.news-events li {
+  margin-bottom: 10px;
+}
+
+.news-events a {
+  text-decoration: none;
+  color: #333;
+}
+ /* News/Events */
+#news {
+    padding: 2rem;
+}
+
+@media (max-width : 600px){
+  .news-events{
+    width: 100%;
+    float: none;
+    text-align: center;
+  }
+}
