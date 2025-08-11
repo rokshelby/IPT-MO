@@ -1,5 +1,4 @@
- /* About */
-    #about {
-      padding: 2rem;
-      background: #f4f4f4;
-    }
+#about {
+  padding: 2rem;
+  background: var(--background-color);
+}

@@ -7,15 +7,42 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/volunteer.css">
+    <link rel="stylesheet" href="css/variables.css">
 </head>
 <body>
     
     <div id="header-placeholder"></div>
 
-    <main>
-        <h1>Welcome to My Website</h1>
-        <p>This is my starting point.</p>
-    </main>
+  <h1>Volunteer Sign-Up</h1>
+<form action="https://formsubmit.co/myhomie1963@gmail.com" method="POST">
+  <!-- Replace with your email -->
+
+  <!-- Optional: custom email subject -->
+  <input type="hidden" name="_subject" value="New Volunteer Signup" />
+
+  <!-- Optional: redirect after submit -->
+  <input type="hidden" name="_next" value="thank-you.html" />
+
+  <!-- Required fields -->
+  <label for="fullName">Full Name *</label>
+  <input type="text" id="fullName" name="fullName" required />
+
+  <label for="email">Email Address *</label>
+  <input type="email" id="email" name="email" required />
+
+  <!-- Optional fields -->
+  <label for="phone">Phone Number</label>
+  <input type="tel" id="phone" name="phone" />
+
+  <label for="availability">Availability (Days/Times)</label>
+  <textarea id="availability" name="availability" rows="3" placeholder="e.g. Weekends, evenings, specific dates..."></textarea>
+
+  <label for="skills">Skills or Interests</label>
+  <textarea id="skills" name="skills" rows="3" placeholder="e.g. Event planning, cooking, driving..."></textarea>
+
+  <button type="submit">Submit</button>
+</form>
 
    <div id="footer-placeholder"></div>
 

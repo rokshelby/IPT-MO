@@ -1,8 +1,14 @@
 :root {
-  --accent: #1e3a8a; /* primary color */
-  --accent-hover: #123178;
-  --muted: #6b7280;
-  --card-bg: #ffffff;
+  --accent: var(--gilded-gold);
+  --accent-hover: #d6aa36; /* goldenrod hover */
+  --muted: #777777; /* medium text */
+  --card-bg: #fffaf0; /* off-white / warm background */
+  --chocolate-brown: #4b2e05;
+  --charcoal-brown: #3a2c23;
+  --gilded-gold: #d4af37;
+  --goldenrod-yellow: #daa520;
+  --text-color-dark: #3a2c23;
+  --text-color-medium: #555555;
 }
 
 .events-grid {
@@ -22,11 +28,10 @@
 
 .event-card {
   background: var(--card-bg);
-  border: 1px solid rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(58, 44, 35, 0.1); /* subtle charcoal border */
   border-radius: 12px;
   padding: 1rem;
-  background: white;
-  box-shadow: 0 1px 6px rgba(16, 24, 40, 0.04);
+  box-shadow: 0 1px 6px rgba(58, 44, 35, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   min-height: 180px;
   overflow: hidden;
@@ -34,20 +39,21 @@
 
 .event-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+  box-shadow: 0 4px 12px var(--accent-hover);
   cursor: pointer;
 }
 
 .event-card h3 {
   margin: 0 0 0.35rem 0;
   font-size: 1.125rem;
-  color: #0f172a;
+  color: var(--text-color-dark);
 }
 
 .event-title {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
   font-weight: bold;
+  color: var(--charcoal-brown);
 }
 
 .event-card p {
@@ -63,18 +69,18 @@
   gap: 0.4rem;
   font-size: 0.9rem;
   margin-bottom: 0.4em;
-  color: #555;
+  color: var(--text-color-medium);
   margin-top: 6px;
 }
 
-.event-detail img{
+.event-detail img {
   width: 16px;
   height: 16px;
   flex-shrink: 0;
   margin-top: 2px;
 }
 
-.event-detail span{
+.event-detail span {
   line-height: 1.3;
 }
 
@@ -82,7 +88,7 @@
   width: 16px;
   height: 16px;
   margin-right: 0.5em;
-  fill: #2563eb;
+  fill: var(--accent);
   flex-shrink: 0;
 }
 
@@ -94,13 +100,13 @@
 
 .event-detail .description {
   font-size: 0.95rem;
-  color: #333;
-  font-weight: 500; /* slightly bolder for emphasis */
+  color: var(--text-color-dark);
+  font-weight: 500;
 }
 
 .event-detail .address {
   font-size: 0.85rem;
-  color: #666;
+  color: var(--text-color-medium);
 }
 
 .event-icon {
@@ -114,18 +120,23 @@
 
 .all-events a {
   display: inline-block;
-  padding: 10px 20px;
-  background-color: #1e3a8a;
-  color: white;
+  padding: 14px 30px;
+  background-color: var(--chocolate-brown);
+  color: var(--gilded-gold);
+  font-weight: 700;
   text-decoration: none;
-  border-radius: 6px;
-  font-weight: 600;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 1.5rem auto 2rem;
+  text-align: center;
+  max-width: 220px;
 }
 
 .all-events a:hover {
-  background-color: #2563eb;
-  transform: translateY(-2px);
+  background-color: var(--charcoal-brown);
+  transform: translateY(-3px);
+  color: var(--goldenrod-yellow);
 }
 
 .full-events-link {
@@ -136,28 +147,27 @@
   font-weight: 700;
   text-decoration: none;
   border-radius: 8px;
-  border: 2px solid rgba(30, 58, 138, 0.06);
+  border: 2px solid rgba(58, 44, 35, 0.1);
   transition: background 0.18s ease, color 0.18s ease;
 }
 
 .full-events-link:hover {
-  background: rgba(30, 58, 138, 0.06);
+  background: rgba(58, 44, 35, 0.1);
   color: var(--accent-hover);
 }
 
 .event-card .description {
   font-size: 0.9rem;
   margin-top: 0.5rem;
-  color: #333;
+  color: var(--text-color-dark);
   line-height: 1.4;
 }
 
 .event-card .address {
   font-size: 0.88rem;
-  color: #333;
+  color: var(--text-color-dark);
 }
 
-/* Learn More button aligned to bottom-right */
 .learn-more {
   margin-top: 0.85rem;
   align-self: flex-end;
@@ -178,7 +188,6 @@
   outline: none;
 }
 
-/* small-screen adjustments */
 @media (max-width: 420px) {
   .event-card {
     padding: 0.9rem;
@@ -188,4 +197,38 @@
     text-align: center;
     align-self: stretch;
   }
+}
+
+.calendar-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.calendar-link {
+  display: flex;
+  align-items: flex-start;
+  text-decoration: none;
+  color: inherit;
+}
+
+.calendar-link svg.icon {
+  flex-shrink: 0;
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 0.5em;
+  margin-top: 0.2em;
+}
+
+.calendar-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-line {
+  /* no indent, aligns with icon bottom */
+}
+
+.time-line {
+  font-size: 0.9em;
+  color: var(--text-color-medium);
 }

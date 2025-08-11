@@ -1,44 +1,84 @@
 [
   {
     "title": "FamFun3k - 9th Annual",
-    "date": "09/13/2025",
-    "location": "Lincoln Park",
     "description": "Come help support the cause.",
-    "address": "606 South 15th Street East St. Louis, IL 62207"
+    "startDate": "09/13/2025",
+    "endDate": "09/13/2025",
+    "startTime": "09:00",
+    "endTime": "14:00",
+    "location": "Lincoln Park",
+    "address": "606 South 15th Street",
+    "state": "IL",
+    "city": "East St. Louis",
+    "zip": "62077"
   },
   {
     "title": "Brother Social Event",
-    "date": "09/15/2025",
-    "location": "Carmel Room Rooftop",
     "description": "Social Gathering for members",
-    "address": "1600 N Broadway, St. Louis, MO 63102"
+    "startDate": "09/15/2025",
+    "endDate": "09/15/2025",
+    "startTime": "18:00",
+    "endTime": "19:30",
+    "location": "Carmel Room Rooftop",
+    "address": "1600 N Broadway",
+    "state": "MO",
+    "city": "St. Louis",
+    "zip": "63102"
+   
   },
   {
     "title": "Toy Drive",
-    "date": "12/19/2025",
-    "location": "Grand Marais Lighthouse Restaurant",
     "description": "Come join for a toy drive for the holidays",
-    "address": "5802 Lake Dr, Centreville Township, IL 62203"
+    "startDate": "12/19/2025",
+    "endDate": "12/19/2025",
+    "startTime": "10:00",
+    "endTime": "14:00",
+    "location": "Grand Marais Lighthouse Restaurant",
+    "address": "5802 Lake Drive",
+    "state": "IL",
+    "city": "Centreville Township",
+    "zip": "62203"
   },
   {
     "title": "Host NPHC Meeting",
-    "date": "09/18/2025",
-    "location": "Grand Marais Lighthouse Restaurant",
     "description": "Hosting the East St. Louis NPHC Meeting",
-    "address": "5802 Lake Dr, Centreville Township, IL 62203"
+    "startDate": "09/18/2025",
+    "endDate": "09/18/2025",
+    "startTime": "18:00",
+    "endTime": "20:00",
+    "location": "Grand Marais Lighthouse Restaurant",
+    "address": "5802 Lake Drive",
+    "state": "IL",
+    "city" : "Centreville Township",
+    "zip" : "62203"
+   
   },
   {
     "title": "Founders Day!",
-    "date": "09/19/2025",
-    "location": "Upbar Social",
     "description": "Come join us to celebrate founders day!",
-    "address": "3763 Forest Park Ave, St. Louis, MO 63108"
+    "startDate": "09/19/2025",
+    "endDate": "09/19/2025",
+    "startTime": "18:00",
+    "endTime": "21:00",
+    "location": "Upbar Social",
+    "address": "3763 Forest Park Avenue",
+    "state": "MO",
+    "city" : "St. Louis",
+    "zip" : "63108"
+   
   },
   {
     "title": "Chili Cook Off Fundraiser",
-    "date": "10/19/2025",
-    "location": "East St Louis City Hall",
     "description": "Come join for a cook off to help fund raise for st. jude",
-    "address": "1200 Market St, St. Louis, MO 63103"
+    "startDate": "10/19/2025",
+    "endDate": "10/19/2025",
+    "startTime": "12:00",
+    "endTime": "17:00",
+    "location": "East St Louis City Hall",
+    "address":"5800 Bond Avenue",
+    "state": "IL",
+    "city" : "East St. Louis",
+    "zip" : "62207"
+   
   }
 ]

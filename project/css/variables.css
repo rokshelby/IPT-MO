@@ -1,0 +1,49 @@
+:root {
+  /* Primary Browns */
+  --charcoal-brown: #3b2f2f;      /* Dark Brown */
+  --chocolate-brown: #6f4e37;     /* Medium Brown */
+  --gilded-gold: #d4af37;          /* Official Gilded Gold */
+  --goldenrod-yellow: #daa520;     /* Warmer Yellow */
+  --kelly-green: #4cbb17;          /* Accent Green */
+  --splash-red: #c72c41;           /* Accent Red */
+  --black: #000000;
+  --off-white: #f4f1de;            /* Light background */
+
+
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+
+  /* Shadows */
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-medium: rgba(0, 0, 0, 0.2);
+
+  /* Border radius */
+  --border-radius: 6px;
+  
+   /* Fonts */
+  --font-family: 'Arial, sans-serif';
+
+
+  /* Golds */
+  --gilded-gold: #D4AF37;
+  --goldenrod-yellow: #DAA520;
+
+  /* Accents */
+  --kelly-green: #4CBB17;
+  --splash-red: #D72631;
+
+  /* Neutrals */
+  --black: #000000;
+  --white: #FFFFFF;
+
+  /* Background & Text */
+  --background-color: #FFF8F0; /* warm off-white */
+  --text-primary: var(--charcoal-brown);
+  --text-secondary: var(--chocolate-brown);
+  --link-color: var(--gilded-gold);
+  --link-hover-color: var(--goldenrod-yellow);
+}

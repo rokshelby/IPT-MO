@@ -1,0 +1,67 @@
+/* Hide toggle button on desktop */
+#nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin-left: auto;
+}
+
+/* Hamburger lines */
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  display: block;
+  background-color: var(--gilded-gold);
+  height: 3px;
+  width: 25px;
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  top: 8px;
+}
+
+/* Mobile styles */
+@media (max-width: 600px) {
+  /* Show hamburger button */
+  #nav-toggle {
+    display: block;
+  }
+
+  /* Hide nav by default */
+  header nav {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1rem;
+    width: 100%;
+    background-color: var(--charcoal-brown);
+  }
+
+  /* Show nav when active */
+  header nav.active {
+    display: flex;
+  }
+
+  /* Nav links full width on mobile */
+  header nav a {
+    padding: 0.75rem 1rem;
+    width: 100%;
+    border-top: 1px solid var(--gilded-gold);
+  }
+}

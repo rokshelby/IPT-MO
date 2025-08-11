@@ -1,0 +1,72 @@
+.contact-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem 1rem 2rem 1rem;
+  font-family: Arial, sans-serif;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.contact-page h1,
+.contact-page h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--text-color-dark);
+}
+
+section {
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.chapter {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--off-white);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chapter h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: var(--text-color-medium);
+}
+
+.chapter p {
+  margin: 0.25rem 0;
+  line-height: 1.4;
+}
+
+.chapter a {
+  color: var(--accent-gold);
+  text-decoration: none;
+}
+
+.chapter a:hover,
+.chapter a:focus {
+  text-decoration: underline;
+}
+
+/* Separator line between Alumni and Undergraduate chapters */
+.undergrad-chapters hr {
+  border: none;
+  border-top: 1px solid var(--border-color-light);
+  margin: 2rem 0;
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+  .contact-page {
+    padding: 1rem 0.5rem 2rem 0.5rem;
+  }
+
+  section {
+    padding: 0 0.5rem;
+  }
+
+  .chapter {
+    padding: 0.75rem;
+  }
+}
