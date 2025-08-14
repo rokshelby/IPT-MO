@@ -1,6 +1,6 @@
 :root {
   /* Primary Browns */
-  --charcoal-brown: #3b2f2f;      /* Dark Brown */
+  --charcoal-brown: rgb(73, 36, 22);      /* Dark Brown */
   --chocolate-brown: #6f4e37;     /* Medium Brown */
   --gilded-gold: #d4af37;          /* Official Gilded Gold */
   --goldenrod-yellow: #daa520;     /* Warmer Yellow */

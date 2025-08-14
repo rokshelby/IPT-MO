@@ -8,6 +8,31 @@
   margin-left: auto;
 }
 
+
+
+.banner{
+  display: flex;
+  align-items: center;
+width: 100%;
+justify-content: center;
+gap: 1em;
+border: 1px solid var(--gilded-gold);
+background-color: var(--charcoal-brown);
+}
+
+
+.banner img{
+  width: 80px;
+  height: 90px;
+  size-adjust: 1;
+}
+
+.banner p{
+  padding: 0;
+  margin: 0;
+  padding-right: 10px;
+}
+
 /* Hamburger lines */
 .hamburger,
 .hamburger::before,
