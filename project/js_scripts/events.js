@@ -1,3 +1,100 @@
+//events.js//
+
+// ----------- Helpers (Global) -----------
+
+function escapeICSText(s = "") {
+  return String(s).replace(/\r\n|\n/g, "\\n").replace(/,/g, "\\,");
+}
+
+function formatDate(d) {
+  const pad = (num) => num.toString().padStart(2, "0");
+  return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
+}
+
+function createICSFromEvent(evt) {
+  const start = evt.parsedDate instanceof Date && !isNaN(evt.parsedDate) ? evt.parsedDate : new Date();
+  const end = new Date(start.getTime() + 24 * 60 * 60 * 1000);
+
+  const summary = escapeICSText(evt.title || "Event");
+  const location = escapeICSText(evt.address || evt.location || "");
+  const description = escapeICSText(evt.description || "");
+
+  const lines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//YourSite//Events//EN",
+    "BEGIN:VEVENT",
+    `UID:${Date.now()}@yoursite.local`,
+    `DTSTAMP:${new Date().toISOString().replace(/[-:.\"]/g, "")}`,
+    `DTSTART;VALUE=DATE:${formatDate(start)}`,
+    `DTEND;VALUE=DATE:${formatDate(end)}`,
+    `SUMMARY:${summary}`,
+    `LOCATION:${location}`,
+    `DESCRIPTION:${description}`,
+    "END:VEVENT",
+    "END:VCALENDAR"
+  ];
+  return lines.join("\r\n");
+}
+
+function generateCalendarUrl(event) {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  if (isIOS) {
+    const icsContent = createICSFromEvent(event);
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    return url;
+  } else {
+    function toUTCString(dateStr, timeStr) {
+      const [month, day, year] = dateStr.split("/").map(Number);
+      const [hour, minute] = timeStr.split(":").map(Number);
+      const centralOffset = 6 * 60; // CST assumed
+      let dateUTC = new Date(Date.UTC(year, month - 1, day, hour, minute));
+      dateUTC = new Date(dateUTC.getTime() + centralOffset * 60 * 1000);
+      const pad = (num) => num.toString().padStart(2, "0");
+      return (
+        dateUTC.getUTCFullYear().toString() +
+        pad(dateUTC.getUTCMonth() + 1) +
+        pad(dateUTC.getUTCDate()) +
+        "T" +
+        pad(dateUTC.getUTCHours()) +
+        pad(dateUTC.getUTCMinutes()) +
+        pad(dateUTC.getUTCSeconds()) +
+        "Z"
+      );
+    }
+
+    const start = toUTCString(event.startDate, event.startTime);
+    const end = toUTCString(event.endDate, event.endTime);
+    const locationStr = `${event.address}, ${event.city}, ${event.state} ${event.zip}`;
+
+    return `https://www.google.com/calendar/render?action=TEMPLATE` +
+      `&text=${encodeURIComponent(event.title)}` +
+      `&dates=${start}/${end}` +
+      `&location=${encodeURIComponent(locationStr)}` +
+      (event.description ? `&details=${encodeURIComponent(event.description)}` : '');
+  }
+}
+
+function generateMapsUrl(evt) {
+  const address = encodeURIComponent(`${evt.address}, ${evt.city}, ${evt.state} ${evt.zip}`);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  return isIOS 
+    ? `http://maps.apple.com/?q=${address}`
+    : `https://www.google.com/maps/search/?api=1&query=${address}`;
+}
+
+function formatTime24to12(time24) {
+  if (!time24) return "";
+  let [hour, minute] = time24.split(':').map(Number);
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  hour = hour % 12 || 12;
+  return `${hour}:${minute.toString().padStart(2, '0')} ${ampm}`;
+}
+
+// ----------- DOMContentLoaded -----------
+
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector(".events-container");
   const toggleLink = document.getElementById('toggleEventsLink');
@@ -7,41 +104,26 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!container) return console.warn("No .events-container found in DOM");
   if (!toggleLink) return console.warn("No #toggleEventsLink found in DOM");
 
-  // Single check for iOS
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const eventsPath = isIOS ? "data/events.json" : "data/events.json";
-
-  fetch(eventsPath)
-  .then(res => {
-    console.log(res.url); // shows the full path the browser tried
-   // return res.json();
-  })
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
-
+  const eventsPath = "data/events.json";
 
   fetch(eventsPath)
     .then(res => res.json())
     .then(events => {
-      // Parse dates and generate URLs
       events.forEach((ev, idx) => {
         const [month, day, year] = ev.startDate.split("/").map(Number);
         ev.parsedDate = new Date(year, month - 1, day);
         ev.mapsUrl = generateMapsUrl(ev);
         ev.calendarUrl = generateCalendarUrl(ev);
-        ev._idx = idx; // stable index
+        ev._idx = idx;
       });
 
-      // Sort ascending by date
       events.sort((a, b) => a.parsedDate - b.parsedDate);
       allEvents = events;
 
-      // Render initial 4 events
       renderEvents(allEvents.slice(0, 4), true);
       toggleLink.textContent = "View All Events →";
 
-      // Toggle show all / show less
       toggleLink.addEventListener("click", e => {
         e.preventDefault();
         showingAll = !showingAll;
@@ -56,43 +138,14 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(err => console.error("Failed to load events:", err));
 
-  // ---------------- Helpers ----------------
+  // ----------- Render Functions -----------
+
   function clearEvents() {
     container.innerHTML = "";
   }
 
   function getWeekdayName(date) {
     return date.toLocaleDateString(undefined, { weekday: 'long' });
-  }
-
-  function escapeICSText(s = "") {
-    return String(s).replace(/\r\n|\n/g, "\\n").replace(/,/g, "\\,");
-  }
-
-  function createICSFromEvent(evt) {
-    const start = evt.parsedDate instanceof Date && !isNaN(evt.parsedDate) ? evt.parsedDate : new Date();
-    const end = new Date(start.getTime() + 24 * 60 * 60 * 1000);
-
-    const summary = escapeICSText(evt.title || "Event");
-    const location = escapeICSText(evt.address || evt.location || "");
-    const description = escapeICSText(evt.description || "");
-
-    const lines = [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "PRODID:-//YourSite//Events//EN",
-      "BEGIN:VEVENT",
-      `UID:${Date.now()}@yoursite.local`,
-      `DTSTAMP:${new Date().toISOString().replace(/[-:.\"]/g, "")}`,
-      `DTSTART;VALUE=DATE:${formatDate(start)}`,
-      `DTEND;VALUE=DATE:${formatDate(end)}`,
-      `SUMMARY:${summary}`,
-      `LOCATION:${location}`,
-      `DESCRIPTION:${description}`,
-      "END:VEVENT",
-      "END:VCALENDAR"
-    ];
-    return lines.join("\r\n");
   }
 
   function renderEvents(eventsToRender, showWeekday = false) {
@@ -186,49 +239,6 @@ document.addEventListener("DOMContentLoaded", () => {
           document.addEventListener('click', handleOutsideClick);
         });
       }
-
     });
   }
 });
-
-function generateCalendarUrl(event) {
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
-  if (isIOS) {
-    // On iOS, create a Blob URL to open in Calendar app
-    const icsContent = createICSFromEvent(event);
-    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    return url; // iOS will open the .ics file
-  } else {
-    // Desktop / Android → Google Calendar URL
-    function toUTCString(dateStr, timeStr) {
-      const [month, day, year] = dateStr.split("/").map(Number);
-      const [hour, minute] = timeStr.split(":").map(Number);
-      const centralOffset = 6 * 60; // CST assumed
-      let dateUTC = new Date(Date.UTC(year, month - 1, day, hour, minute));
-      dateUTC = new Date(dateUTC.getTime() + centralOffset * 60 * 1000);
-      const pad = (num) => num.toString().padStart(2, "0");
-      return (
-        dateUTC.getUTCFullYear().toString() +
-        pad(dateUTC.getUTCMonth() + 1) +
-        pad(dateUTC.getUTCDate()) +
-        "T" +
-        pad(dateUTC.getUTCHours()) +
-        pad(dateUTC.getUTCMinutes()) +
-        pad(dateUTC.getUTCSeconds()) +
-        "Z"
-      );
-    }
-
-    const start = toUTCString(event.startDate, event.startTime);
-    const end = toUTCString(event.endDate, event.endTime);
-    const locationStr = `${event.address}, ${event.city}, ${event.state} ${event.zip}`;
-
-    return `https://www.google.com/calendar/render?action=TEMPLATE` +
-      `&text=${encodeURIComponent(event.title)}` +
-      `&dates=${start}/${end}` +
-      `&location=${encodeURIComponent(locationStr)}` +
-      (event.description ? `&details=${encodeURIComponent(event.description)}` : '');
-  }
-}
