@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Single check for iOS
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const eventsPath = isIOS ? "/data/events.json" : "data/events.json";
+  const eventsPath = isIOS ? "/project/data/events.json" : "data/events.json";
 
   fetch(eventsPath)
     .then(res => res.json())
