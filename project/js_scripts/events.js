@@ -101,9 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderEvents(eventsToRender, showWeekday = false) {
     clearEvents();
-
-    
-    
+  
     eventsToRender.forEach(event => {
       const formattedStartTime = formatTime24to12(event.startTime);
       const formattedEndTime = formatTime24to12(event.endTime);
@@ -112,94 +110,91 @@ document.addEventListener("DOMContentLoaded", () => {
       const options = { year: 'numeric', month: 'short', day: 'numeric' };
       const formattedDate = event.parsedDate.toLocaleDateString(undefined, options);
       card.className = "event-card";
+  
       card.innerHTML = `
-      <div class="card-inner">
-      <div class="card-front">
-        <h3 class="event-title">${event.title}</h3>
-
-        <div class="event-detail">
-          <a href="${event.calendarUrl}" class="calendar-link" data-event-index="${event._idx}" title="Add to calendar">
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="sprites/icons.svg#icon-calendar"></use>
-            </svg>
-    <div class="calendar-text">
-      <div class="date-line"><strong>Date:</strong> <span>${weekdayText}${formattedDate}</span></div>
-      <div class="time-line"><strong>Time:</strong> <span>${formattedStartTime} - ${formattedEndTime}</span></div>
-    </div>
-
-
-          </a>
-        </div>
-
-        <div class="event-detail">
-          <a href="${event.mapsUrl}" target="_blank" rel="noopener noreferrer" title="Open location in maps">
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="sprites/icons.svg#icon-location"></use>
-            </svg>
-            <span>${event.address}, ${event.city}, ${event.state} ${event.zip}</span>
-          </a>
-        </div>
-
-        <div class="detail-text">
-          <p class="description"><strong>Description:</strong> ${event.description || ""}</p>
-          <p class="address"><strong>Address:</strong> ${event.address || ""}</p>
-        </div>
-
-        <a class="learn-more" href="#">Learn More</a>
-        </div>
+        <div class="card-inner">
+          <div class="card-front">
+            <h3 class="event-title">${event.title}</h3>
+  
+            <div class="event-detail">
+              <a href="${event.calendarUrl}" class="calendar-link" data-event-index="${event._idx}" title="Add to calendar">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="sprites/icons.svg#icon-calendar"></use>
+                </svg>
+                <div class="calendar-text">
+                  <div class="date-line"><strong>Date:</strong> <span>${weekdayText}${formattedDate}</span></div>
+                  <div class="time-line"><strong>Time:</strong> <span>${formattedStartTime} - ${formattedEndTime}</span></div>
+                </div>
+              </a>
+            </div>
+  
+            <div class="event-detail">
+              <a href="${event.mapsUrl}" target="_blank" rel="noopener noreferrer" title="Open location in maps">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="sprites/icons.svg#icon-location"></use>
+                </svg>
+                <span>${event.address}, ${event.city}, ${event.state} ${event.zip}</span>
+              </a>
+            </div>
+  
+            <div class="detail-text">
+              <p class="description"><strong>Description:</strong> ${event.description || ""}</p>
+              <p class="address"><strong>Address:</strong> ${event.address || ""}</p>
+            </div>
+  
+            <a class="learn-more" href="#">Learn More</a>
+          </div>
         </div>
       `;
-
+  
       container.appendChild(card);
-
-      // attach calendar listener for this card (closure uses event._idx)
+  
+      // --- Calendar Link Handler ---
       const calLink = card.querySelector('.calendar-link');
       if (calLink) {
         calLink.addEventListener('click', (e) => {
-          e.preventDefault();
           const idx = Number(calLink.dataset.eventIndex);
           const evt = allEvents[idx];
           if (!evt) return console.error("Event not found for index", idx);
-
-          const icsContent = createICSFromEvent(evt);
-          const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          // safe-ish filename
-          const safeName = (evt.title || 'event').replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') || 'event';
-          a.download = `${safeName}.ics`;
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          URL.revokeObjectURL(url);
+  
+          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+          if (isIOS) {
+            e.preventDefault(); // prevent default navigation
+            const icsContent = createICSFromEvent(evt);
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const safeName = (evt.title || 'event').replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') || 'event';
+            a.download = `${safeName}.ics`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+          }
+          // else: desktop / Android users follow link naturally to Google Calendar URL
         });
       }
-
-
-// Inside your renderEvents() or after cards are created
-document.querySelectorAll('.event-card').forEach(card => {
-  const learnMoreBtn = card.querySelector('.learn-more');
-
-  learnMoreBtn.addEventListener('click', e => {
-    e.stopPropagation(); // prevent this click from also triggering outside click
-    card.classList.add('flip');
-
-    const handleOutsideClick = (event) => {
-      if (!card.contains(event.target)) {
-        card.classList.remove('flip');
-        document.removeEventListener('click', handleOutsideClick);
+  
+      // --- Learn More Flip Handler ---
+      const learnMoreBtn = card.querySelector('.learn-more');
+      if (learnMoreBtn) {
+        learnMoreBtn.addEventListener('click', e => {
+          e.stopPropagation();
+          card.classList.add('flip');
+  
+          const handleOutsideClick = (event) => {
+            if (!card.contains(event.target)) {
+              card.classList.remove('flip');
+              document.removeEventListener('click', handleOutsideClick);
+            }
+          };
+  
+          // Listen for any future clicks to close
+          document.addEventListener('click', handleOutsideClick);
+        });
       }
-    };
-
-    // Listen for any future clicks to close
-    document.addEventListener('click', handleOutsideClick);
-  });
-});
-
-
-      
-
+  
     });
   }
-});
+}); 
