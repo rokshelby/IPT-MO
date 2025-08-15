@@ -1,16 +1,21 @@
 .footer-container {
-  background: var(--charcoal-brown);
+  background: linear-gradient(45deg, var(--gilded-gold), var(--charcoal-brown), var(--gilded-gold));
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
   color: var(--off-white);
+  animation: diagonalShift 8 ease infinite;
 }
-
+@keyframes diagonalShift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
 
 .social-links {
   background-color: var(--off-white);
   display: inline-block;
-  padding: 7px;
+  padding: 7px 7px 7px 7px;
   border-radius: 5px;
   border: 1px solid var(--off-white);
   color: var(--charcoal-brown);
@@ -26,19 +31,12 @@
 }
 
 footer{
-    background: var(--charcoal-brown);
    color: var(--off-white);
-  padding: 10px 10px;
   text-align: center;
   font-family: var(--font-family);
   font-size: 0.9rem;
 
   
-  background: var(--charcoal-brown);
-  color: var(--off-white);
-  font-family: var(--font-family);
-  padding: var(--spacing-sm);
-  text-align: center;
   border-radius: var(--border-radius);
 
 

@@ -113,6 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const formattedDate = event.parsedDate.toLocaleDateString(undefined, options);
       card.className = "event-card";
       card.innerHTML = `
+      <div class="card-inner">
+      <div class="card-front">
         <h3 class="event-title">${event.title}</h3>
 
         <div class="event-detail">
@@ -144,6 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
 
         <a class="learn-more" href="#">Learn More</a>
+        </div>
+        </div>
       `;
 
       container.appendChild(card);
@@ -171,6 +175,31 @@ document.addEventListener("DOMContentLoaded", () => {
           URL.revokeObjectURL(url);
         });
       }
+
+
+// Inside your renderEvents() or after cards are created
+document.querySelectorAll('.event-card').forEach(card => {
+  const learnMoreBtn = card.querySelector('.learn-more');
+
+  learnMoreBtn.addEventListener('click', e => {
+    e.stopPropagation(); // prevent this click from also triggering outside click
+    card.classList.add('flip');
+
+    const handleOutsideClick = (event) => {
+      if (!card.contains(event.target)) {
+        card.classList.remove('flip');
+        document.removeEventListener('click', handleOutsideClick);
+      }
+    };
+
+    // Listen for any future clicks to close
+    document.addEventListener('click', handleOutsideClick);
+  });
+});
+
+
+      
+
     });
   }
 });

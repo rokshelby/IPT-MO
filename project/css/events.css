@@ -11,6 +11,13 @@
   --text-color-medium: #555555;
 }
 
+.cardContainer{
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 5px;
+
+}
+
 .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -25,22 +32,97 @@
   align-items: start;
   box-sizing: border-box;
 }
+main, h1{
+  color: white;
 
+}
+/* ===== Event Card Flip Styles ===== */
 .event-card {
-  background: var(--card-bg);
-  border: 1px solid rgba(58, 44, 35, 0.1); /* subtle charcoal border */
+  perspective: 1000px;
+  min-height: 180px; /* preserve your previous min-height */
+  margin: 0; /* grid spacing handled by container */
+  cursor: pointer;
+  border: none; /* remove previous border to handle via inner */
+  background: transparent;
+  box-shadow: none;
+  padding-left: 3px;
+  border-radius: 8px;
+  display: flex;
+}
+
+.event-card .card-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px; /* keep your radius */
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  box-shadow: 0 1px 6px rgba(58, 44, 35, 0.1);
+  flex: 1;
+  min-height: 100%;
+}
+
+.event-card.flip .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
   border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 1px 6px rgba(58, 44, 35, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  min-height: 180px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   overflow: hidden;
+
 }
+
+
+
+
+.card-back{
+  transform: rotateY(180deg);
+
+}
+
+/* Keep your existing hover effects */
+.event-card:hover .card-inner {
+  box-shadow: 0 4px 12px var(--accent-hover);
+
+}
+
+/* Inner content adjustments */
+.card-front h3,
+.card-back h3 {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+  font-size: 1.125rem;
+}
+
+.card-back p,
+.card-front p {
+  font-size: 0.95rem;
+  line-height: 1.35;
+  margin: 0.25rem 0;
+}
+
+.card-back a {
+  color: var(--gilded-gold);
+  text-decoration: underline;
+}
+
+.card-back a:hover {
+  color: var(--accent-hover);
+}
+
 
 .event-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 12px var(--accent-hover);
   cursor: pointer;
+
 }
 
 .event-card h3 {
@@ -71,6 +153,7 @@
   margin-bottom: 0.4em;
   color: var(--text-color-medium);
   margin-top: 6px;
+  
 }
 
 .event-detail img {
@@ -116,6 +199,7 @@
 .all-events {
   text-align: center;
   margin-top: 20px;
+  
 }
 
 .all-events a {
@@ -149,6 +233,7 @@
   border-radius: 8px;
   border: 2px solid rgba(58, 44, 35, 0.1);
   transition: background 0.18s ease, color 0.18s ease;
+
 }
 
 .full-events-link:hover {
