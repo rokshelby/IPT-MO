@@ -12,6 +12,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const eventsPath = isIOS ? "/project/data/events.json" : "data/events.json";
 
   fetch(eventsPath)
+  .then(res => {
+    console.log(res.url); // shows the full path the browser tried
+   // return res.json();
+  })
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
+
+
+  fetch(eventsPath)
     .then(res => res.json())
     .then(events => {
       // Parse dates and generate URLs
