@@ -7,43 +7,32 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!container) return console.warn("No .events-container found in DOM");
   if (!toggleLink) return console.warn("No #toggleEventsLink found in DOM");
 
+  // Single check for iOS
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   const eventsPath = isIOS ? "/data/events.json" : "data/events.json";
 
   fetch(eventsPath)
     .then(res => res.json())
     .then(events => {
-      // Parse dates (MM/DD/YY) into Date objects
-      events.forEach(ev => {
-      // Parse startDate in MM/DD/YYYY format
-      const parts = ev.startDate.split("/"); // MM/DD/YYYY
-      const year = Number(parts[2]);
-      const month = Number(parts[0]) - 1;
-      const day = Number(parts[1]);
-      ev.parsedDate = new Date(year, month, day);
-
-              // Generate URLs here
-      
-      ev.mapsUrl = generateMapsUrl(ev);
-      ev.calendarUrl = generateCalendarUrl(ev);
+      // Parse dates and generate URLs
+      events.forEach((ev, idx) => {
+        const [month, day, year] = ev.startDate.split("/").map(Number);
+        ev.parsedDate = new Date(year, month - 1, day);
+        ev.mapsUrl = generateMapsUrl(ev);
+        ev.calendarUrl = generateCalendarUrl(ev);
+        ev._idx = idx; // stable index
       });
 
-      // Sort ascending by parsed date
+      // Sort ascending by date
       events.sort((a, b) => a.parsedDate - b.parsedDate);
-
-      // assign stable index in the sorted array
-      events.forEach((ev, idx) => ev._idx = idx);
-
       allEvents = events;
 
-      // render initial (first 4)
+      // Render initial 4 events
       renderEvents(allEvents.slice(0, 4), true);
-
-      // init toggle text
       toggleLink.textContent = "View All Events →";
 
-      // toggle handler
-      toggleLink.addEventListener("click", (e) => {
+      // Toggle show all / show less
+      toggleLink.addEventListener("click", e => {
         e.preventDefault();
         showingAll = !showingAll;
         if (showingAll) {
@@ -55,10 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     })
-    .catch(err => {
-      console.error("Failed to load events:", err);
-    });
+    .catch(err => console.error("Failed to load events:", err));
 
+  // ---------------- Helpers ----------------
   function clearEvents() {
     container.innerHTML = "";
   }
@@ -68,20 +56,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function escapeICSText(s = "") {
-    // minimal escaping for ICS
     return String(s).replace(/\r\n|\n/g, "\\n").replace(/,/g, "\\,");
   }
 
   function createICSFromEvent(evt) {
     const start = evt.parsedDate instanceof Date && !isNaN(evt.parsedDate) ? evt.parsedDate : new Date();
-    const end = new Date(start.getTime() + 24 * 60 * 60 * 1000); // all-day event -> next day
-
+    const end = new Date(start.getTime() + 24 * 60 * 60 * 1000);
 
     const summary = escapeICSText(evt.title || "Event");
     const location = escapeICSText(evt.address || evt.location || "");
     const description = escapeICSText(evt.description || "");
 
-    // Use CRLF per ICS spec
     const lines = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
@@ -102,21 +87,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderEvents(eventsToRender, showWeekday = false) {
     clearEvents();
-  
+
     eventsToRender.forEach(event => {
       const formattedStartTime = formatTime24to12(event.startTime);
       const formattedEndTime = formatTime24to12(event.endTime);
       const weekdayText = showWeekday ? `${getWeekdayName(event.parsedDate)}, ` : "";
-      const card = document.createElement("div");
       const options = { year: 'numeric', month: 'short', day: 'numeric' };
       const formattedDate = event.parsedDate.toLocaleDateString(undefined, options);
+
+      const card = document.createElement("div");
       card.className = "event-card";
-  
       card.innerHTML = `
         <div class="card-inner">
           <div class="card-front">
             <h3 class="event-title">${event.title}</h3>
-  
+
             <div class="event-detail">
               <a href="${event.calendarUrl}" class="calendar-link" data-event-index="${event._idx}" title="Add to calendar">
                 <svg class="icon" aria-hidden="true">
@@ -128,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
               </a>
             </div>
-  
+
             <div class="event-detail">
               <a href="${event.mapsUrl}" target="_blank" rel="noopener noreferrer" title="Open location in maps">
                 <svg class="icon" aria-hidden="true">
@@ -137,30 +122,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span>${event.address}, ${event.city}, ${event.state} ${event.zip}</span>
               </a>
             </div>
-  
+
             <div class="detail-text">
               <p class="description"><strong>Description:</strong> ${event.description || ""}</p>
               <p class="address"><strong>Address:</strong> ${event.address || ""}</p>
             </div>
-  
+
             <a class="learn-more" href="#">Learn More</a>
           </div>
         </div>
       `;
-  
       container.appendChild(card);
-  
+
       // --- Calendar Link Handler ---
       const calLink = card.querySelector('.calendar-link');
       if (calLink) {
-        calLink.addEventListener('click', (e) => {
+        calLink.addEventListener('click', e => {
           const idx = Number(calLink.dataset.eventIndex);
           const evt = allEvents[idx];
           if (!evt) return console.error("Event not found for index", idx);
-  
-          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
           if (isIOS) {
-            e.preventDefault(); // prevent default navigation
+            e.preventDefault();
             const icsContent = createICSFromEvent(evt);
             const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
             const url = URL.createObjectURL(blob);
@@ -173,29 +156,27 @@ document.addEventListener("DOMContentLoaded", () => {
             a.remove();
             URL.revokeObjectURL(url);
           }
-          // else: desktop / Android users follow link naturally to Google Calendar URL
         });
       }
-  
+
       // --- Learn More Flip Handler ---
       const learnMoreBtn = card.querySelector('.learn-more');
       if (learnMoreBtn) {
         learnMoreBtn.addEventListener('click', e => {
           e.stopPropagation();
           card.classList.add('flip');
-  
-          const handleOutsideClick = (event) => {
+
+          const handleOutsideClick = event => {
             if (!card.contains(event.target)) {
               card.classList.remove('flip');
               document.removeEventListener('click', handleOutsideClick);
             }
           };
-  
-          // Listen for any future clicks to close
+
           document.addEventListener('click', handleOutsideClick);
         });
       }
-  
+
     });
   }
-}); 
+});
