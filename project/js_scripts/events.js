@@ -7,9 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!container) return console.warn("No .events-container found in DOM");
   if (!toggleLink) return console.warn("No #toggleEventsLink found in DOM");
 
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const eventsPath = isIOS ? "/data/events.json" : "data/events.json";
 
-
-  fetch("data/events.json")
+  fetch(eventsPath)
     .then(res => res.json())
     .then(events => {
       // Parse dates (MM/DD/YY) into Date objects
