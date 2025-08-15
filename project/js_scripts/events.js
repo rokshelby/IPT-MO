@@ -188,7 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             <div class="detail-text">
               <p class="description"><strong>Description:</strong> ${event.description || ""}</p>
-              <p class="address"><strong>Address:</strong> ${event.address || ""}</p>
             </div>
 
             <a class="learn-more" href="#">Learn More</a>
