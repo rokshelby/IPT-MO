@@ -1,35 +1,35 @@
 [
     {
-        "name": "default1",
+        "name": "George",
         "crossing" : "2002",
         "university/professional" : "Semo",
-        "position" : "President",
+        "position" : "president",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
     },
     {
-        "name": "default2",
+        "name": "dale smith",
         "crossing" : "2003",
         "university/professional" : "Siue",
-        "position" : "Member",
+        "position" : "member",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
     }
     ,
     {
-        "name": "default3",
+        "name": "john smith",
         "crossing" : "2099",
         "university/professional" : "Siue",
-        "position" : "Member",
+        "position" : "member",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
     }
     ,
     {
-        "name": "default4",
+        "name": "bokeem rodgers",
         "crossing" : "1968",
         "university/professional" : "Siue",
-        "position" : "Member",
+        "position" : "treasurer",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
     }
@@ -38,7 +38,7 @@
         "name": "default5",
         "crossing" : "2008",
         "university/professional" : "Siue",
-        "position" : "Member",
+        "position" : "member",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
     }
@@ -47,7 +47,7 @@
         "name": "default6",
         "crossing" : "2011",
         "university/professional" : "Siue",
-        "position" : "Member",
+        "position" : "member",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
     }
@@ -56,18 +56,60 @@
         "name": "default7",
         "crossing" : "2020",
         "university/professional" : "Siue",
-        "position" : "Member",
+        "position" : "member",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
     }
     ,
     {
+        "name": "president",
+        "crossing" : "2019",
+        "university/professional" : "Siue",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }    ,
+    {
+        "name": "vice president",
+        "crossing" : "2019",
+        "university/professional" : "Siue",
+        "position" : "vice-president",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }    ,
+    {
         "name": "default8",
         "crossing" : "2019",
         "university/professional" : "Siue",
-        "position" : "Member",
+        "position" : "secretary",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }    ,
+    {
+        "name": "default8",
+        "crossing" : "2019",
+        "university/professional" : "Siue",
+        "position" : "sergeant-at-arms",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }    ,
+    {
+        "name": "default8",
+        "crossing" : "2019",
+        "university/professional" : "Siue",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }    ,
+    {
+        "name": "default8",
+        "crossing" : "2019",
+        "university/professional" : "Siue",
+        "position" : "member",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
     }
+
+
 
 ]
