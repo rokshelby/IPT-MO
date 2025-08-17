@@ -1,0 +1,57 @@
+/* Countdown Timer Styles */
+#countdown {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--gilded-gold);
+  background: var(--charcoal-brown);
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  margin: 5 auto;
+  max-width: fit-content;
+  text-align: center;
+}
+
+#countdown span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+  
+}
+
+#countdown .label {
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: var(--goldenrod-yellow);
+  margin-top: 5px;
+  margin-right: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive: shrink font on small screens */
+@media (max-width: 600px) {
+  #countdown {
+    font-size: 1.2rem;
+    gap: 10px;
+    padding: 15px;
+  }
+  #countdown span {
+    min-width: 50px;
+  }
+}
+
+/* Smooth fade for countdown updates */
+.fade {
+  animation: fadeInOut 1.2s ease;
+}
+
+@keyframes fadeInOut {
+  0% { transform: scale(0.97); }
+  50% { transform: scale(1.01); }  
+  100% { opacity: 1; transform: scale(1); }
+}

@@ -1,0 +1,73 @@
+[
+    {
+        "name": "default1",
+        "crossing" : "2002",
+        "university/professional" : "Semo",
+        "position" : "President",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    },
+    {
+        "name": "default2",
+        "crossing" : "2003",
+        "university/professional" : "Siue",
+        "position" : "Member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+    ,
+    {
+        "name": "default3",
+        "crossing" : "2099",
+        "university/professional" : "Siue",
+        "position" : "Member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+    ,
+    {
+        "name": "default4",
+        "crossing" : "1968",
+        "university/professional" : "Siue",
+        "position" : "Member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+    ,
+    {
+        "name": "default5",
+        "crossing" : "2008",
+        "university/professional" : "Siue",
+        "position" : "Member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+    ,
+    {
+        "name": "default6",
+        "crossing" : "2011",
+        "university/professional" : "Siue",
+        "position" : "Member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+    ,
+    {
+        "name": "default7",
+        "crossing" : "2020",
+        "university/professional" : "Siue",
+        "position" : "Member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+    ,
+    {
+        "name": "default8",
+        "crossing" : "2019",
+        "university/professional" : "Siue",
+        "position" : "Member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+
+]

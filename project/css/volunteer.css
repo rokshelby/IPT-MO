@@ -7,19 +7,20 @@ body {
   max-width: 600px;
   margin: 0 auto;
   color: var(--text-dark);
+  background-color: rgb(36,1,2);
 }
 
 h1 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: var(--charcoal-brown);
+  color: var(--gilded-gold);
 }
 
 form {
   background: #fff;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(255,255,255,0.5 );
 }
 
 label {

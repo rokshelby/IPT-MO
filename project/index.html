@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/timer.css">
 </head>
 <body>
     
@@ -28,15 +29,21 @@
       <button class="next">&#10095;</button>
       <div class="dots"></div>
     </section>
+    <div class="oneColumn">
 
-    <!-- News / Events Section -->
-    <section id="upcoming-events" class="news-events">
-      <h2>Upcoming News & Events</h2>
+      <section id="count-down-timer" class="news-events">
+        <h2>Countdown till Iota Week</h2>
+        <div id="timer-placeholder"></div>
+      </section>
+      <!-- News / Events Section -->
+      <section id="upcoming-events" class="news-events">
+        <h2>Upcoming News & Events</h2>
         <div id="events-list"></div>
-  <div class="view-all">
-    <a href="events.html">View All Events →</a>
-  </div>
-    </section>
+        <div class="view-all">
+          <a href="events.html">View All Events →</a>
+        </div>
+      </section>
+    </div>
   </main>
 
       <!-- About -->
@@ -56,5 +63,6 @@
     <script src="js_scripts/main.js"></script>
     <script src="js_scripts/slideshowscript.js"></script>
     <script src="js_scripts/upcomingnewevents.js"></script>
+    <script src="js_scripts/timer.js"></script>
 </body>
 </html>

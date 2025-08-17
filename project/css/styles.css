@@ -11,6 +11,15 @@
   --text-dark: #333333;
 }
 
+.oneColumn{
+  display: block;
+  max-width: 800px;
+  min-width: auto;   /* remove sidebar narrow width */
+  margin: 2rem auto; /* center in column */
+  text-align: center;
+  align-self: auto;
+}
+
 * {
     margin: 0;
     padding: 0;
