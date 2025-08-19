@@ -2,7 +2,7 @@
     {
         "name": "George Ervin",
         "crossing" : "2002",
-        "university/professional" : "Southern Illinios University Edwardsville",
+        "university/professional" : "SIU",
         "position" : "president",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
@@ -27,7 +27,7 @@
     ,
     {
         "name": "Carl Mattox",
-        "crossing" : "1968",
+        "crossing" : "1979",
         "university/professional" : "Siue",
         "position" : "treasurer",
         "social links" : "twitter",
@@ -62,7 +62,7 @@
     }
     ,
     {
-        "name": "president",
+        "name": "default",
         "crossing" : "2019",
         "university/professional" : "Siue",
         "position" : "member",
