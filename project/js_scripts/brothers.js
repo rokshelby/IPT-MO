@@ -49,7 +49,7 @@ function returnCard(brother){
         <img src="${brother.image}" alt="${brother.name}">
         <p><strong>Name:</Strong> ${brother.name}</p>
           <p><strong>Position/Role:</strong> ${brother.position}</p>
-          <p><strong>Crossing Year:</strong> ${brother.crossing}</p>
+          <p><strong>Joined:</strong> ${brother.crossing}</p>
           <p><strong>Path:</strong>${brother["university/professional"]}</p>
           `;
           if(x){
