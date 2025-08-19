@@ -28,6 +28,10 @@ background-color: var(--charcoal-brown);
   size-adjust: 1;
 }
 
+.chartered{
+font-size: x-small;
+}
+
 .banner p{
   padding: 0;
   margin: 0;

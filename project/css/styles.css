@@ -1,4 +1,5 @@
 /*styles.css*/
+/*styles.css*/
 :root {
   --charcoal-brown: #3c1e0a;
   --chocolate-brown: #7d4f4f;
@@ -11,19 +12,10 @@
   --text-dark: #333333;
 }
 
-.oneColumn{
-  display: block;
-  max-width: 800px;
-  min-width: auto;   /* remove sidebar narrow width */
-  margin: 2rem auto; /* center in column */
-  text-align: center;
-  align-self: auto;
-}
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Base body */
@@ -31,63 +23,39 @@ body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
   color: var(--text-dark);
-  margin: 0;
-  padding: 0;
   position: relative; /* required for ::before */
   overflow-x: hidden;
   background-color: rgb(36,1,2);
 }
 
-/* Parallax background with overlay */
-body::before {
-  content: "";
-  position: fixed;      /* stays in place */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('../images/iotaShieldLarge.jpeg') no-repeat center center;
-  background-size: cover;
-
-  /* Overlay for transparency */
-  box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.4);
-
-  z-index: -1;          /* behind all content */
-    transform: translateY(var(--parallax-y, 0));
-  
-    transition: transform 0.1s linear;
-}
-
-
-
 header {
-    background: var(--charcoal-brown);
-    color: var(--gilded-gold);
-    padding: 10px 20px;
-    text-align: center;
+  background: var(--charcoal-brown);
+  color: var(--gilded-gold);
+  padding: 10px 20px;
+  text-align: center;
 }
 
 nav a {
-    color: var(--gilded-gold);
-    margin: 0 10px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
+  color: var(--gilded-gold);
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 nav a:hover {
-    text-decoration: underline;
-    color: var(--goldenrod-yellow);
+  text-decoration: underline;
+  color: var(--goldenrod-yellow);
 }
 
 nav a.active {
-    font-weight: bold;
-    color: var(--accent-red); /* strong contrast for active */
-    text-decoration: underline;
+  font-weight: bold;
+  color: var(--accent-red); /* strong contrast for active */
+  text-decoration: underline;
 }
 
 main {
-    padding: 20px;
+  padding: 20px;
 }
 
 .container {
@@ -103,38 +71,6 @@ main {
   }
 }
 
-.news-events {
-  padding: 1.5rem;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  max-width: 800px;
-  margin: 2rem auto;
-}
-
-.news-events h2 {
-  margin-bottom: 1rem;
-  text-align: center;
-  color: #333;
-}
-
-#events-list .event {
-  padding: 0.8rem;
-  border-bottom: 1px solid #ddd;
-}
-
-#events-list .event:last-child {
-  border-bottom: none;
-}
-
-.event-date {
-  font-weight: bold;
-  color: #4cbb17; /* Your Kelly green */
-}
-
-.event-title {
-  margin: 0.2rem 0 0.5rem;
-}
-
 .view-all {
   text-align: center;
   margin-top: 1rem;
@@ -142,7 +78,7 @@ main {
 
 .view-all a {
   text-decoration: none;
-  color: #4cbb17;
+  color: var(--kelly-green);
   font-weight: bold;
 }
 
