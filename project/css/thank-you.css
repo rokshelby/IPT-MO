@@ -1,0 +1,33 @@
+/* Centered layout for thank-you page */
+main.thank-you-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Headline styling */
+main.thank-you-container h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: var(--text, #ffffff); /* fallback white if --text not set */
+}
+
+/* Paragraph styling */
+main.thank-you-container p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text, #cccccc);
+}
+
+/* Link styling */
+main.thank-you-container a {
+  color: #007BFF;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+main.thank-you-container a:hover {
+  color: #3399FF;
+}
