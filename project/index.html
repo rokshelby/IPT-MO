@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My New Website</title>
+    <title>Iota Phi Theta Fraternity Inc. Mu Omega Chapter</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/slideshow.css">
     <link rel="stylesheet" href="css/newsevents.css">
@@ -11,16 +11,15 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/timer.css">
+    <link rel="stylesheet" href="css/home.css">
+    
 </head>
 <body>
     
     <div id="header-placeholder"></div>
 
-    <div class="hero">
-        <h1>Iota Phi Theta Fraternity Inc</h1>
-        <h3>Chapter: Mu Omega</h3>
-        <h4>Southern Illinois Region</h4>
-    </div>
+    
 
     <main class="container">
     <!-- Slideshow Section -->
@@ -32,26 +31,36 @@
       <button class="next">&#10095;</button>
       <div class="dots"></div>
     </section>
+    <div class="oneColumn">
 
-    <!-- News / Events Section -->
-    <section id="upcoming-events" class="news-events">
-      <h2>Upcoming News & Events</h2>
+      <section id="count-down-timer" class="news-events">
+        <h2>Iota Week Countdown</h2>
+        <div id="timer-placeholder"></div>
+      </section>
+      <!-- News / Events Section -->
+      <section id="upcoming-events" class="news-events">
+        <h2>Upcoming Events</h2>
         <div id="events-list"></div>
-  <div class="view-all">
-    <a href="events.html">View All Events →</a>
-  </div>
-    </section>
+        <div class="view-all">
+          <a href="events.html">View All Events →</a>
+        </div>
+      </section>
+    </div>
   </main>
 
       <!-- About -->
   <section id="about">
     <h2>About Us</h2>
-    <p>Welcome to our chapter website. We are dedicated to positively impacting our community.</p>
+    <p>Born during the Civil Rights Movement at Morgan State College, 
+      Iota Phi Theta Fraternity, Inc. has grown into a powerful force, 
+      impacting communities while keeping its five principles at heart. 
+      With chapters across the nation and around the world, we continue making a difference everywhere—always 
+      “Building a Tradition, Not Resting Upon One!”</p>
   </section>
 
     <!-- News/Events -->
   <section id="news">
-    <h2>News & Events</h2>
+    <h2>News & Past Events</h2>
     <p>Stay tuned for the latest updates, and upcoming events.</p>
   </section>
 
@@ -60,5 +69,6 @@
     <script src="js_scripts/main.js"></script>
     <script src="js_scripts/slideshowscript.js"></script>
     <script src="js_scripts/upcomingnewevents.js"></script>
+    <script src="js_scripts/timer.js"></script>
 </body>
 </html>

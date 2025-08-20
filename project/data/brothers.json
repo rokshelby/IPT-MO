@@ -1,0 +1,115 @@
+[
+    {
+        "name": "George Ervin",
+        "crossing" : "2002",
+        "university/professional" : "SIU",
+        "position" : "president",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    },
+    {
+        "name": "dale smith",
+        "crossing" : "2003",
+        "university/professional" : "Siue",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+    ,
+    {
+        "name": "john smith",
+        "crossing" : "2099",
+        "university/professional" : "Siue",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+    ,
+    {
+        "name": "Carl Mattox",
+        "crossing" : "1979",
+        "university/professional" : "Siue",
+        "position" : "treasurer",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+    ,
+    {
+        "name": "default5",
+        "crossing" : "2008",
+        "university/professional" : "Siue",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+    ,
+    {
+        "name": "default6",
+        "crossing" : "2011",
+        "university/professional" : "Siue",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+    ,
+    {
+        "name": "default7",
+        "crossing" : "2020",
+        "university/professional" : "Siue",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+    ,
+    {
+        "name": "default",
+        "crossing" : "2019",
+        "university/professional" : "Siue",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }    ,
+    {
+        "name": "Jackie Johnson",
+        "crossing" : "2019",
+        "university/professional" : "Siue",
+        "position" : "vice-president",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }    ,
+    {
+        "name": "Dale White",
+        "crossing" : "2019",
+        "university/professional" : "Siue",
+        "position" : "secretary",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }    ,
+    {
+        "name": "Frank McCall",
+        "crossing" : "2019",
+        "university/professional" : "Siue",
+        "position" : "sergeant-at-arms",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }    ,
+    {
+        "name": "Antron Rose",
+        "crossing" : "2019",
+        "university/professional" : "Siue",
+        "position" : "Business Manager",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }    ,
+    {
+        "name": "default8",
+        "crossing" : "2019",
+        "university/professional" : "Siue",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }
+
+
+
+]

@@ -1,3 +1,100 @@
+//events.js//
+
+// ----------- Helpers (Global) -----------
+
+function escapeICSText(s = "") {
+  return String(s).replace(/\r\n|\n/g, "\\n").replace(/,/g, "\\,");
+}
+
+function formatDate(d) {
+  const pad = (num) => num.toString().padStart(2, "0");
+  return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
+}
+
+function createICSFromEvent(evt) {
+  const start = evt.parsedDate instanceof Date && !isNaN(evt.parsedDate) ? evt.parsedDate : new Date();
+  const end = new Date(start.getTime() + 24 * 60 * 60 * 1000);
+
+  const summary = escapeICSText(evt.title || "Event");
+  const location = escapeICSText(evt.address || evt.location || "");
+  const description = escapeICSText(evt.description || "");
+
+  const lines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//YourSite//Events//EN",
+    "BEGIN:VEVENT",
+    `UID:${Date.now()}@yoursite.local`,
+    `DTSTAMP:${new Date().toISOString().replace(/[-:.\"]/g, "")}`,
+    `DTSTART;VALUE=DATE:${formatDate(start)}`,
+    `DTEND;VALUE=DATE:${formatDate(end)}`,
+    `SUMMARY:${summary}`,
+    `LOCATION:${location}`,
+    `DESCRIPTION:${description}`,
+    "END:VEVENT",
+    "END:VCALENDAR"
+  ];
+  return lines.join("\r\n");
+}
+
+function generateCalendarUrl(event) {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  if (isIOS) {
+    const icsContent = createICSFromEvent(event);
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    return url;
+  } else {
+    function toUTCString(dateStr, timeStr) {
+      const [month, day, year] = dateStr.split("/").map(Number);
+      const [hour, minute] = timeStr.split(":").map(Number);
+      const centralOffset = 6 * 60; // CST assumed
+      let dateUTC = new Date(Date.UTC(year, month - 1, day, hour, minute));
+      dateUTC = new Date(dateUTC.getTime() + centralOffset * 60 * 1000);
+      const pad = (num) => num.toString().padStart(2, "0");
+      return (
+        dateUTC.getUTCFullYear().toString() +
+        pad(dateUTC.getUTCMonth() + 1) +
+        pad(dateUTC.getUTCDate()) +
+        "T" +
+        pad(dateUTC.getUTCHours()) +
+        pad(dateUTC.getUTCMinutes()) +
+        pad(dateUTC.getUTCSeconds()) +
+        "Z"
+      );
+    }
+
+    const start = toUTCString(event.startDate, event.startTime);
+    const end = toUTCString(event.endDate, event.endTime);
+    const locationStr = `${event.address}, ${event.city}, ${event.state} ${event.zip}`;
+
+    return `https://www.google.com/calendar/render?action=TEMPLATE` +
+      `&text=${encodeURIComponent(event.title)}` +
+      `&dates=${start}/${end}` +
+      `&location=${encodeURIComponent(locationStr)}` +
+      (event.description ? `&details=${encodeURIComponent(event.description)}` : '');
+  }
+}
+
+function generateMapsUrl(evt) {
+  const address = encodeURIComponent(`${evt.address}, ${evt.city}, ${evt.state} ${evt.zip}`);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  return isIOS 
+    ? `http://maps.apple.com/?q=${address}`
+    : `https://www.google.com/maps/search/?api=1&query=${address}`;
+}
+
+function formatTime24to12(time24) {
+  if (!time24) return "";
+  let [hour, minute] = time24.split(':').map(Number);
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  hour = hour % 12 || 12;
+  return `${hour}:${minute.toString().padStart(2, '0')} ${ampm}`;
+}
+
+// ----------- DOMContentLoaded -----------
+
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector(".events-container");
   const toggleLink = document.getElementById('toggleEventsLink');
@@ -7,42 +104,27 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!container) return console.warn("No .events-container found in DOM");
   if (!toggleLink) return console.warn("No #toggleEventsLink found in DOM");
 
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const eventsPath = "data/events.json";
 
-
-  fetch("data/events.json")
+  fetch(eventsPath)
     .then(res => res.json())
     .then(events => {
-      // Parse dates (MM/DD/YY) into Date objects
-      events.forEach(ev => {
-      // Parse startDate in MM/DD/YYYY format
-      const parts = ev.startDate.split("/"); // MM/DD/YYYY
-      const year = Number(parts[2]);
-      const month = Number(parts[0]) - 1;
-      const day = Number(parts[1]);
-      ev.parsedDate = new Date(year, month, day);
-
-              // Generate URLs here
-      
-      ev.mapsUrl = generateMapsUrl(ev);
-      ev.calendarUrl = generateCalendarUrl(ev);
+      events.forEach((ev, idx) => {
+        const [month, day, year] = ev.startDate.split("/").map(Number);
+        ev.parsedDate = new Date(year, month - 1, day);
+        ev.mapsUrl = generateMapsUrl(ev);
+        ev.calendarUrl = generateCalendarUrl(ev);
+        ev._idx = idx;
       });
 
-      // Sort ascending by parsed date
       events.sort((a, b) => a.parsedDate - b.parsedDate);
-
-      // assign stable index in the sorted array
-      events.forEach((ev, idx) => ev._idx = idx);
-
       allEvents = events;
 
-      // render initial (first 4)
       renderEvents(allEvents.slice(0, 4), true);
-
-      // init toggle text
       toggleLink.textContent = "View All Events →";
 
-      // toggle handler
-      toggleLink.addEventListener("click", (e) => {
+      toggleLink.addEventListener("click", e => {
         e.preventDefault();
         showingAll = !showingAll;
         if (showingAll) {
@@ -54,9 +136,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     })
-    .catch(err => {
-      console.error("Failed to load events:", err);
-    });
+    .catch(err => console.error("Failed to load events:", err));
+
+  // ----------- Render Functions -----------
 
   function clearEvents() {
     container.innerHTML = "";
@@ -66,109 +148,94 @@ document.addEventListener("DOMContentLoaded", () => {
     return date.toLocaleDateString(undefined, { weekday: 'long' });
   }
 
-  function escapeICSText(s = "") {
-    // minimal escaping for ICS
-    return String(s).replace(/\r\n|\n/g, "\\n").replace(/,/g, "\\,");
-  }
-
-  function createICSFromEvent(evt) {
-    const start = evt.parsedDate instanceof Date && !isNaN(evt.parsedDate) ? evt.parsedDate : new Date();
-    const end = new Date(start.getTime() + 24 * 60 * 60 * 1000); // all-day event -> next day
-
-
-    const summary = escapeICSText(evt.title || "Event");
-    const location = escapeICSText(evt.address || evt.location || "");
-    const description = escapeICSText(evt.description || "");
-
-    // Use CRLF per ICS spec
-    const lines = [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "PRODID:-//YourSite//Events//EN",
-      "BEGIN:VEVENT",
-      `UID:${Date.now()}@yoursite.local`,
-      `DTSTAMP:${new Date().toISOString().replace(/[-:.\"]/g, "")}`,
-      `DTSTART;VALUE=DATE:${formatDate(start)}`,
-      `DTEND;VALUE=DATE:${formatDate(end)}`,
-      `SUMMARY:${summary}`,
-      `LOCATION:${location}`,
-      `DESCRIPTION:${description}`,
-      "END:VEVENT",
-      "END:VCALENDAR"
-    ];
-    return lines.join("\r\n");
-  }
-
   function renderEvents(eventsToRender, showWeekday = false) {
     clearEvents();
 
-    
-    
     eventsToRender.forEach(event => {
       const formattedStartTime = formatTime24to12(event.startTime);
       const formattedEndTime = formatTime24to12(event.endTime);
       const weekdayText = showWeekday ? `${getWeekdayName(event.parsedDate)}, ` : "";
-      const card = document.createElement("div");
       const options = { year: 'numeric', month: 'short', day: 'numeric' };
       const formattedDate = event.parsedDate.toLocaleDateString(undefined, options);
+
+      const card = document.createElement("div");
       card.className = "event-card";
       card.innerHTML = `
-        <h3 class="event-title">${event.title}</h3>
+        <div class="card-inner">
+          <div class="card-front">
+            <h3 class="event-title">${event.title}</h3>
 
-        <div class="event-detail">
-          <a href="${event.calendarUrl}" class="calendar-link" data-event-index="${event._idx}" title="Add to calendar">
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="sprites/icons.svg#icon-calendar"></use>
-            </svg>
-    <div class="calendar-text">
-      <div class="date-line"><strong>Date:</strong> <span>${weekdayText}${formattedDate}</span></div>
-      <div class="time-line"><strong>Time:</strong> <span>${formattedStartTime} - ${formattedEndTime}</span></div>
-    </div>
+            <div class="event-detail">
+              <a href="${event.calendarUrl}" class="calendar-link" data-event-index="${event._idx}" title="Add to calendar">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="sprites/icons.svg#icon-calendar"></use>
+                </svg>
+                <div class="calendar-text">
+                  <div class="date-line"><strong>Date:</strong> <span>${weekdayText}${formattedDate}</span></div>
+                  <div class="time-line"><strong>Time:</strong> <span>${formattedStartTime} - ${formattedEndTime}</span></div>
+                </div>
+              </a>
+            </div>
 
+            <div class="event-detail">
+              <a href="${event.mapsUrl}" target="_blank" rel="noopener noreferrer" title="Open location in maps">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="sprites/icons.svg#icon-location"></use>
+                </svg>
+                <span>${event.address}, ${event.city}, ${event.state} ${event.zip}</span>
+              </a>
+            </div>
 
-          </a>
+            <div class="detail-text">
+              <p class="description"><strong>Description:</strong> ${event.description || ""}</p>
+            </div>
+
+            <a class="learn-more" href="#">Learn More</a>
+          </div>
         </div>
-
-        <div class="event-detail">
-          <a href="${event.mapsUrl}" target="_blank" rel="noopener noreferrer" title="Open location in maps">
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="sprites/icons.svg#icon-location"></use>
-            </svg>
-            <span>${event.address}, ${event.city}, ${event.state} ${event.zip}</span>
-          </a>
-        </div>
-
-        <div class="detail-text">
-          <p class="description"><strong>Description:</strong> ${event.description || ""}</p>
-          <p class="address"><strong>Address:</strong> ${event.address || ""}</p>
-        </div>
-
-        <a class="learn-more" href="#">Learn More</a>
       `;
-
       container.appendChild(card);
 
-      // attach calendar listener for this card (closure uses event._idx)
+      // --- Calendar Link Handler ---
       const calLink = card.querySelector('.calendar-link');
       if (calLink) {
-        calLink.addEventListener('click', (e) => {
-          e.preventDefault();
+        calLink.addEventListener('click', e => {
           const idx = Number(calLink.dataset.eventIndex);
           const evt = allEvents[idx];
           if (!evt) return console.error("Event not found for index", idx);
 
-          const icsContent = createICSFromEvent(evt);
-          const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          // safe-ish filename
-          const safeName = (evt.title || 'event').replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') || 'event';
-          a.download = `${safeName}.ics`;
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          URL.revokeObjectURL(url);
+          if (isIOS) {
+            e.preventDefault();
+            const icsContent = createICSFromEvent(evt);
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const safeName = (evt.title || 'event').replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') || 'event';
+            a.download = `${safeName}.ics`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+          }
+        });
+      }
+
+      // --- Learn More Flip Handler ---
+      const learnMoreBtn = card.querySelector('.learn-more');
+      if (learnMoreBtn) {
+        learnMoreBtn.addEventListener('click', e => {
+          e.stopPropagation();
+          card.classList.add('flip');
+
+          const handleOutsideClick = event => {
+            if (!card.contains(event.target)) {
+              card.classList.remove('flip');
+              document.removeEventListener('click', handleOutsideClick);
+            }
+          };
+
+          document.addEventListener('click', handleOutsideClick);
         });
       }
     });

@@ -21,9 +21,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
       eventsList.innerHTML = nextTwo.map(e => `
         <div class="event">
-          <div class="event-date">${new Date(e.startDate).toLocaleDateString()}</div>
-          <div class="event-title">${e.title}</div>
-          <div class="event-location">${e.location}</div>
+        <div class="event-title">${e.title}</div>
+          <div class="event-date"><strong>Date:</strong> ${new Date(e.startDate).toLocaleDateString()}</div>
+          <div class="event-name"><strong>Location:</strong> ${e.location}</div>
+          <div class="event-location"><strong>Address:</strong> ${returnAddress(e)}
+          
+          </div>
         </div>
       `).join('');
     }
@@ -31,4 +34,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('Error loading events:', err);
   }
 });
+
+function returnAddress(event){
+  return`${event.address}, ${event.city}, ${event.state} ${event.zip}`;
+}
+
+
 

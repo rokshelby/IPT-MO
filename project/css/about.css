@@ -1,4 +1,78 @@
 #about {
   padding: 2rem;
   background: var(--background-color);
+  margin: 2px;
+  border-radius: 12px;
+}
+#news{
+  padding: 2rem;
+  background: var(--background-color);
+  margin: 2px;
+  border-radius: 12px;
+
+}
+.about-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  line-height: 1.6;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.about-page h1, .about-page h2, .about-page h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--chocolate-brown, #4b2e05);
+}
+
+.about-page .motto {
+  text-align: center;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--gilded-gold, #d4af37);
+  margin-bottom: 40px;
+}
+
+#about-local {
+  background: #fff8e6; /* soft gold background for local chapter */
+  padding: 20px 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.2);
+}
+
+/* National Hero Section */
+#about-national {
+  text-align: center;
+  padding: 80px 20px 60px;
+  background: linear-gradient(135deg, var(--gilded-gold, #d4af37), var(--charcoal-brown, #3a2c23));
+  color: #fff;
+}
+
+#about-national h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+#about-national h2 {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  font-weight: 500;
+}
+
+#about-national p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto 15px;
+  line-height: 1.6;
+}
+
+#about-national .motto {
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: #fffacd; /* soft cream for contrast */
+  margin-top: 20px;
 }

@@ -3,12 +3,14 @@
 .news-events {
   align-self: flex-start;
   text-align: right;
-  min-width: 250px;
+  min-width: 300px;
+  max-width: 450px;
   background: var(--off-white);
   padding: 1rem;
   border: 1px solid var(--muted-light);
   border-radius: var(--border-radius);
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  
 }
 
 .news-events h2 {
