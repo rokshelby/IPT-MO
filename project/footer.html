@@ -4,7 +4,9 @@
 
     <p>© 2025 Iota Phi Theta Fraternity Inc.</p>
     <p>Chapter: Mu Omega</p>
-    <p>Contact us at: <a href="mailto:iotaphitheta.org"></a></p>
+<p>Contact us: 
+  <a href="#" id="footerEmailLink">Contact Us</a>
+</p>
     <p>Follow us on social media:</p>
     <div class="social-links">
       
@@ -21,4 +23,19 @@
 </footer>
 
 </div>
+
+<form id="footerContactForm" action="https://formsubmit.co/muomega@iotaphitheta.org" method="POST" style="display:none;">
+  <!-- Optional: custom subject -->
+  <input type="hidden" name="_subject" value="Website Contact Form Submission">
+  
+  <!-- Optional: redirect to thank-you page -->
+  <input type="hidden" name="_next" value="thank-you.html">
+
+  <!-- Required: visitor email -->
+  <input type="email" name="email" placeholder="Your email" required>
+  
+  <!-- Required: message -->
+  <textarea name="message" placeholder="Your message" required></textarea>
+</form>
+
 
