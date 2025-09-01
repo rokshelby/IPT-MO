@@ -33,6 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(response => response.text())
     .then(data => {
       document.getElementById('footer-placeholder').innerHTML = data;
+
+      // NOW load footer.js dynamically
+      const script = document.createElement("script");
+      script.src = "js_scripts/footer.js";
+      document.body.appendChild(script);
     })
     .catch(err => console.error('Error loading footer:', err));
 
