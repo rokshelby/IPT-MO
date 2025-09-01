@@ -12,11 +12,10 @@
   --text-color-medium: #555555;
 }
 
-.cardContainer{
+.cardContainer {
   background-color: var(--card-bg);
   border-radius: 12px;
   padding: 5px;
-
 }
 
 .events-grid {
@@ -33,17 +32,18 @@
   align-items: start;
   box-sizing: border-box;
 }
-main, h1{
-  color: white;
 
+main, h1 {
+  color: white;
 }
+
 /* ===== Event Card Flip Styles ===== */
 .event-card {
   perspective: 1000px;
-  min-height: 180px; /* preserve your previous min-height */
-  margin: 0; /* grid spacing handled by container */
+  min-height: 180px;
+  margin: 0;
   cursor: pointer;
-  border: none; /* remove previous border to handle via inner */
+  border: none;
   background: transparent;
   box-shadow: none;
   padding-left: 3px;
@@ -54,9 +54,10 @@ main, h1{
 .event-card .card-inner {
   width: 100%;
   height: 100%;
-  border-radius: 12px; /* keep your radius */
-  transition: transform 0.8s;
+  border-radius: 12px;
+  transition: transform 0.8s ease-in-out;
   transform-style: preserve-3d;
+  backface-visibility: hidden;
   box-shadow: 0 1px 6px rgba(58, 44, 35, 0.1);
   flex: 1;
   min-height: 100%;
@@ -77,24 +78,17 @@ main, h1{
   flex-direction: column;
   justify-content: flex-start;
   overflow: hidden;
-
 }
 
-
-
-
-.card-back{
+.card-back {
   transform: rotateY(180deg);
-
 }
 
-/* Keep your existing hover effects */
+/* Hover */
 .event-card:hover .card-inner {
   box-shadow: 0 4px 12px var(--accent-hover);
-
 }
 
-/* Inner content adjustments */
 .card-front h3,
 .card-back h3 {
   margin-top: 0;
@@ -118,12 +112,10 @@ main, h1{
   color: var(--accent-hover);
 }
 
-
 .event-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 12px var(--accent-hover);
   cursor: pointer;
-
 }
 
 .event-card h3 {
@@ -154,7 +146,6 @@ main, h1{
   margin-bottom: 0.4em;
   color: var(--text-color-medium);
   margin-top: 6px;
-  
 }
 
 .event-detail img {
@@ -200,7 +191,6 @@ main, h1{
 .all-events {
   text-align: center;
   margin-top: 20px;
-  
 }
 
 .all-events a {
@@ -234,12 +224,10 @@ main, h1{
   border-radius: 8px;
   border: 2px solid rgba(58, 44, 35, 0.1);
   transition: background 0.18s ease, color 0.18s ease;
-
 }
 
 .full-events-link:hover {
   background: rgba(58, 44, 35, 0.1);
-  /*color: var(--accent-hover);*/
   color: white;
 }
 
@@ -255,21 +243,22 @@ main, h1{
   color: var(--text-color-dark);
 }
 
-.learn-more {
+.learn-more-btn {
   margin-top: 0.85rem;
-  align-self: flex-end;
-  display: inline-block;
+  align-self: flex-start;
   padding: 0.45rem 0.85rem;
   background: var(--accent);
   color: white;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
+  border: none;
+  cursor: pointer;
   transition: background 0.18s ease, transform 0.12s ease;
 }
 
-.learn-more:hover,
-.learn-more:focus {
+.learn-more-btn:hover,
+.learn-more-btn:focus {
   background: var(--accent-hover);
   transform: translateY(-2px);
   outline: none;
@@ -279,13 +268,14 @@ main, h1{
   .event-card {
     padding: 0.9rem;
   }
-  .learn-more {
+  .learn-more-btn {
     width: 100%;
     text-align: center;
     align-self: stretch;
   }
-  .full-events-link :hover{
-    color: green;  }
+  .full-events-link :hover {
+    color: green;
+  }
 }
 
 .calendar-container {
@@ -313,11 +303,64 @@ main, h1{
   flex-direction: column;
 }
 
-.date-line {
-  /* no indent, aligns with icon bottom */
-}
-
 .time-line {
   font-size: 0.9em;
   color: var(--text-color-medium);
+}
+
+/* ===== Modal Styles ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.65);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  animation: fadeIn 0.3s ease-in-out;
+  color: var(--text-color-dark);
+}
+
+.close {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--charcoal-brown);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.event-card .card-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  transition: transform 0.8s ease-in-out; /* keep this */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  box-shadow: 0 1px 6px rgba(58, 44, 35, 0.1);
+  flex: 1;
+  min-height: 100%;
+}
+
+
+.close:hover {
+  color: var(--accent-hover);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
 }

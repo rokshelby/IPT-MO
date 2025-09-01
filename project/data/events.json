@@ -10,7 +10,8 @@
     "address": "606 South 15th Street",
     "state": "IL",
     "city": "East St. Louis",
-    "zip": "62077"
+    "zip": "62077",
+    "image": ""
   },
   {
     "title": "Brother Social Event",
@@ -23,7 +24,8 @@
     "address": "1600 N Broadway",
     "state": "MO",
     "city": "St. Louis",
-    "zip": "63102"
+    "zip": "63102",
+    "image": "images/brotherSocial.JPG"
    
   },
   {
@@ -37,7 +39,8 @@
     "address": "5802 Lake Drive",
     "state": "IL",
     "city": "Centreville Township",
-    "zip": "62203"
+    "zip": "62203",
+    "image": ""
   },
   {
     "title": "Host NPHC Meeting",
@@ -50,7 +53,8 @@
     "address": "5802 Lake Drive",
     "state": "IL",
     "city" : "Centreville Township",
-    "zip" : "62203"
+    "zip" : "62203",
+    "image": ""
    
   },
   {
@@ -64,7 +68,8 @@
     "address": "3763 Forest Park Avenue",
     "state": "MO",
     "city" : "St. Louis",
-    "zip" : "63108"
+    "zip" : "63108",
+    "image": "images/foundersDay.JPG"
    
   },
   {
@@ -78,7 +83,8 @@
     "address":"5800 Bond Avenue",
     "state": "IL",
     "city" : "East St. Louis",
-    "zip" : "62207"
+    "zip" : "62207",
+    "image": ""
    
   }
 ]

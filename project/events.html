@@ -8,8 +8,7 @@
   <link rel="stylesheet" href="css/header.css" />
   <link rel="stylesheet" href="css/footer.css" />
   <link rel="stylesheet" href="css/events.css" />
-      <link rel="stylesheet" href="css/variables.css">
-
+  <link rel="stylesheet" href="css/variables.css">
 </head>
 <body>
 
@@ -20,8 +19,7 @@
     <p>Please join us at our upcoming events.</p>
 
     <div class="cardContainer">
-
-      <div class="events-container">
+      <div id="events-container" class="events-container">
         <!-- Event cards will be inserted here dynamically -->
       </div>
     </div>
@@ -29,13 +27,26 @@
     <div class="all-events">
       <a href="#" id="toggleEventsLink" class="full-events-link"></a>
     </div>
-
-
   </main>
 
+  <!-- 🔽 Modal Structure -->
+  <div id="eventModal" class="modal">
+    <div class="modal-content">
+      <span id="modalClose" class="close">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDate"></p>
+      <p id="modalTime"></p>
+      <p id="modalLocation"></p>
+      <p id="modalDescription"></p>
+      <img id="modalImage" style="display:none;" alt="Event image">
+    </div>
+  </div>
+  <!-- 🔼 End Modal -->
+
   <div id="footer-placeholder"></div>
+
   <script src="js_scripts/events.js"></script>
   <script src="js_scripts/utils.js"></script>
   <script src="js_scripts/main.js"></script>
-  </body>
+</body>
 </html>

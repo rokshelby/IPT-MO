@@ -1,4 +1,4 @@
-//events.js//
+// events.js
 
 // ----------- Helpers (Global) -----------
 
@@ -43,13 +43,12 @@ function generateCalendarUrl(event) {
   if (isIOS) {
     const icsContent = createICSFromEvent(event);
     const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    return url;
+    return URL.createObjectURL(blob);
   } else {
     function toUTCString(dateStr, timeStr) {
       const [month, day, year] = dateStr.split("/").map(Number);
       const [hour, minute] = timeStr.split(":").map(Number);
-      const centralOffset = 6 * 60; // CST assumed
+      const centralOffset = 6 * 60; // CST
       let dateUTC = new Date(Date.UTC(year, month - 1, day, hour, minute));
       dateUTC = new Date(dateUTC.getTime() + centralOffset * 60 * 1000);
       const pad = (num) => num.toString().padStart(2, "0");
@@ -100,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggleLink = document.getElementById('toggleEventsLink');
   let allEvents = [];
   let showingAll = false;
+  let activeCard = null; // track which card opened the modal
 
   if (!container) return console.warn("No .events-container found in DOM");
   if (!toggleLink) return console.warn("No #toggleEventsLink found in DOM");
@@ -107,6 +107,35 @@ document.addEventListener("DOMContentLoaded", () => {
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   const eventsPath = "data/events.json";
 
+  // modal elements
+  const modal = document.getElementById("eventModal");
+  const modalClose = document.getElementById("modalClose");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalDate = document.getElementById("modalDate");
+  const modalTime = document.getElementById("modalTime");
+  const modalLocation = document.getElementById("modalLocation");
+  const modalDescription = document.getElementById("modalDescription");
+
+  // --- Modal Close Function ---
+  function closeModal() {
+    if (!activeCard) return;
+    const cardInner = activeCard.querySelector(".card-inner");
+    const duration = parseFloat(getComputedStyle(cardInner).transitionDuration) * 1000;
+
+    activeCard.classList.remove("flip");
+
+    setTimeout(() => {
+      modal.style.display = "none";
+      activeCard = null;
+    }, duration);
+  }
+
+  modalClose.onclick = closeModal;
+  modal.onclick = e => {
+    if (e.target === modal) closeModal();
+  };
+
+  // fetch events
   fetch(eventsPath)
     .then(res => res.json())
     .then(events => {
@@ -127,19 +156,13 @@ document.addEventListener("DOMContentLoaded", () => {
       toggleLink.addEventListener("click", e => {
         e.preventDefault();
         showingAll = !showingAll;
-        if (showingAll) {
-          renderEvents(allEvents, true);
-          toggleLink.textContent = "Show Less ↑";
-        } else {
-          renderEvents(allEvents.slice(0, 4), true);
-          toggleLink.textContent = "View All Events →";
-        }
+        renderEvents(showingAll ? allEvents : allEvents.slice(0, 4), true);
+        toggleLink.textContent = showingAll ? "Show Less ↑" : "View All Events →";
       });
     })
     .catch(err => console.error("Failed to load events:", err));
 
-  // ----------- Render Functions -----------
-
+  // --- Render Events ---
   function clearEvents() {
     container.innerHTML = "";
   }
@@ -155,8 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const formattedStartTime = formatTime24to12(event.startTime);
       const formattedEndTime = formatTime24to12(event.endTime);
       const weekdayText = showWeekday ? `${getWeekdayName(event.parsedDate)}, ` : "";
-      const options = { year: 'numeric', month: 'short', day: 'numeric' };
-      const formattedDate = event.parsedDate.toLocaleDateString(undefined, options);
+      const formattedDate = event.parsedDate.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
 
       const card = document.createElement("div");
       card.className = "event-card";
@@ -196,13 +218,13 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       container.appendChild(card);
 
-      // --- Calendar Link Handler ---
+      // --- Calendar Link ---
       const calLink = card.querySelector('.calendar-link');
       if (calLink) {
         calLink.addEventListener('click', e => {
           const idx = Number(calLink.dataset.eventIndex);
           const evt = allEvents[idx];
-          if (!evt) return console.error("Event not found for index", idx);
+          if (!evt) return;
 
           if (isIOS) {
             e.preventDefault();
@@ -221,21 +243,35 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
 
-      // --- Learn More Flip Handler ---
+      // --- Learn More: Flip + Modal ---
       const learnMoreBtn = card.querySelector('.learn-more');
       if (learnMoreBtn) {
         learnMoreBtn.addEventListener('click', e => {
+          e.preventDefault();
           e.stopPropagation();
+
+          activeCard = card;
           card.classList.add('flip');
 
-          const handleOutsideClick = event => {
-            if (!card.contains(event.target)) {
-              card.classList.remove('flip');
-              document.removeEventListener('click', handleOutsideClick);
-            }
-          };
+          const cardInner = card.querySelector('.card-inner');
+          const duration = parseFloat(getComputedStyle(cardInner).transitionDuration) * 1000;
 
-          document.addEventListener('click', handleOutsideClick);
+          setTimeout(() => {
+            modal.style.display = 'flex';
+            modalTitle.textContent = event.title;
+            modalDate.textContent = `Date: ${formattedDate}`;
+            modalTime.textContent = `Time: ${formattedStartTime} - ${formattedEndTime}`;
+            modalLocation.textContent = `Location: ${event.address}, ${event.city}, ${event.state} ${event.zip}`;
+            modalDescription.textContent = event.description || '';
+
+            if (event.image && event.image.trim() !== '') {
+              modalImage.src = event.image;   // assuming you have an <img id="modalImage">
+              modalImage.style.display = 'block';
+            } else {
+              modalImage.style.display = 'none';
+            }
+
+          }, duration);
         });
       }
     });
