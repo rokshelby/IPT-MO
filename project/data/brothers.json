@@ -17,9 +17,9 @@
     }
     ,
     {
-        "name": "john smith",
-        "crossing" : "2099",
-        "university/professional" : "Siue",
+        "name": "Asriel Miller",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
         "position" : "member",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
@@ -35,43 +35,43 @@
     }
     ,
     {
-        "name": "default5",
-        "crossing" : "2008",
-        "university/professional" : "Siue",
+        "name": "Brian Lashley",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
         "position" : "member",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
     }
     ,
     {
-        "name": "default6",
-        "crossing" : "2011",
-        "university/professional" : "Siue",
+        "name": "Bruce Johnson",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
         "position" : "member",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
     }
     ,
     {
-        "name": "default7",
-        "crossing" : "2020",
-        "university/professional" : "Siue",
+        "name": "Cameron Blair",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
         "position" : "member",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
     }
     ,
     {
-        "name": "default",
-        "crossing" : "2019",
-        "university/professional" : "Siue",
+        "name": "Casey Owens",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
         "position" : "member",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
     }    ,
     {
-        "name": "Jackie Johnson",
-        "crossing" : "2019",
+        "name": "Jack Johnson",
+        "crossing" : "N/a",
         "university/professional" : "Siue",
         "position" : "vice-president",
         "social links" : "twitter",
@@ -102,10 +102,130 @@
         "image" : "images/defaultImg.png"
     }    ,
     {
-        "name": "default8",
-        "crossing" : "2019",
-        "university/professional" : "Siue",
+        "name": "Harlan Smith Sr.",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
         "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Dan Williams",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Daniel Shields",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Darrion Long",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "De'Varius Lee",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Doc White",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Eric Burgess",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Freedie Morgan",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Jaison McCall",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Jarryd Hardaway",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Malachi Brewer",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Mayor Reggie Jones",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Norman Robinson",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Shaquille Armstrong",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Sedrick Jones",
+        "crossing" : "N/a",
+        "university/professional" : "N/a",
+        "position" : "member",
+        "social links" : "twitter",
+        "image" : "images/defaultImg.png"
+    }   ,
+    {
+        "name": "Rakeem Shelby",
+        "crossing" : "2008",
+        "university/professional" : "siue",
+        "position" : "webmaster",
         "social links" : "twitter",
         "image" : "images/defaultImg.png"
     }
