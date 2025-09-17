@@ -106,6 +106,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   const eventsPath = "data/events.json";
+  
+
+
+
 
   // modal elements
   const modal = document.getElementById("eventModal");
@@ -139,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch(eventsPath)
     .then(res => res.json())
     .then(events => {
+      const today = new Date();
       events.forEach((ev, idx) => {
         const [month, day, year] = ev.startDate.split("/").map(Number);
         ev.parsedDate = new Date(year, month - 1, day);
@@ -147,8 +152,13 @@ document.addEventListener("DOMContentLoaded", () => {
         ev._idx = idx;
       });
 
-      events.sort((a, b) => a.parsedDate - b.parsedDate);
-      allEvents = events;
+      const upcomingEvents = events.filter(event => {
+        const eventEnd = new Date(event.endDate);
+        return eventEnd >= today;
+      });
+
+      upcomingEvents.sort((a, b) => a.parsedDate - b.parsedDate);
+      allEvents = upcomingEvents;
 
       renderEvents(allEvents.slice(0, 4), true);
       toggleLink.textContent = "View All Events →";
